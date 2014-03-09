@@ -1,4 +1,4 @@
 mpTicTacToe
 ===========
 
-A multiplayer TicTac Toe application in Java.
+A multiplayer TicTacToe application in Java.
