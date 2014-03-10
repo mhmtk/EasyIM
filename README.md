@@ -1,4 +1,4 @@
-mpTicTacToe
+EasyIM
 ===========
 
-A multiplayer TicTacToe application in Java.
+A simple chat application in Java. This was done to get experience with Networking.
