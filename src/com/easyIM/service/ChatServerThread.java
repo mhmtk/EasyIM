@@ -1,5 +1,7 @@
 package com.easyIM.service;
 
+import java.net.Socket;
+
 /**
  * 
  * @author Tendai T.T. Mudyiwa
@@ -12,6 +14,10 @@ package com.easyIM.service;
  *
  */
 public class ChatServerThread implements Runnable{
+
+	public ChatServerThread(ChatServer chatServer, Socket socket) {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public void run() {

@@ -1,6 +1,9 @@
 package com.easyIM.service;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Hashtable;
 
 
 /**
@@ -18,6 +21,7 @@ import java.net.ServerSocket;
 public class ChatServer {
 	
 	private ServerSocket serverSocket;
+	private Hashtable<Socket, DataOutputStream> outputStreamTable;
 	
 	public ChatServer(int port){
 		
@@ -25,32 +29,81 @@ public class ChatServer {
 		listen(port);
 	}
 	
+	/**
+	 * Listens for connection requests and handles them
+	 * appropriately.
+	 * @param port the port number
+	 */
 	private void listen(int port) {
 		
 		//create sever socket
 		try {
 			serverSocket = new ServerSocket(port);
 			
+			//Log successful socket creation
+			System.out.println("Connection Successful!");
+			System.out.println("Now listening for messages on port: "+port+'\n');
+			
+			while(true){
+				
+				//Receive new connection
+				Socket socket = serverSocket.accept();
+				
+				//Log that we've received message
+				System.out.println("Received connection from "+ socket);
+				
+				//DataOutputStream for writing data 
+				DataOutputStream dout = new DataOutputStream( socket.getOutputStream() );
+				
+				// Save this stream so we don't need to make it again
+				outputStreamTable.put( socket, dout );
+				
+				// Create a chatServerThread
+				new ChatServerThread(this,socket);
+			}
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		
+		
+		
+		
 	}
 
+	/**
+	 * Switches on the the Server
+	 * @param args
+	 */
 	public static void main(String[] args){
 		
 		//Retrieve Command Line Inputs
 		int port = Integer.parseInt(args[1]);
-		int IP_ADDRESS = Integer.parseInt(args[0]);
 		
 		//Log Message
-		System.out.println("Command Line arguments received :)"+'\n');
-		System.out.println("IP:"+'\t'+IP_ADDRESS+'\t'+"Port:"+'\t'+ port+'\n');
+		System.out.println("Command Line argument received :)"+'\n');
+		System.out.println("Port:"+'\t'+ port+'\n');
 		System.out.println("******************************************"+'\n');
 		
 		//Create ChatServer object
 		new ChatServer(port);
+		
+	}
+
+	/**
+	 * Send message to client
+	 */
+	public void sendMessage(){
+		
+	}
+	
+	
+	/**
+	 * Removes connection thread with dead client
+	 */
+	public void removeConnection(){
 		
 	}
 
