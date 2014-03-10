@@ -11,6 +11,13 @@ package com.easyIM.service;
  * class
  *
  */
-public class ChatServerThread {
+public class ChatServerThread implements Runnable{
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 }
