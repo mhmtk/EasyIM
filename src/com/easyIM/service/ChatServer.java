@@ -93,7 +93,8 @@ public class ChatServer {
 	}
 
 	/**
-	 * Send message to client
+	 * Sends message to clients
+	 * @param message
 	 */
 	public void sendMessage(String message) {
 
@@ -121,7 +122,8 @@ public class ChatServer {
 	}
 
 	/**
-	 * Removes connection thread with dead client
+	 * Removes connection from dead client
+	 * @param socket
 	 */
 	public void removeConnection(Socket socket) {
 		
