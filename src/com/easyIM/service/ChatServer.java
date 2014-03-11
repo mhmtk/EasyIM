@@ -123,7 +123,23 @@ public class ChatServer {
 	/**
 	 * Removes connection thread with dead client
 	 */
-	public void removeConnection() {
+	public void removeConnection(Socket socket) {
+		
+		synchronized (outputStreamTable) {
+			
+			//Log for removing socket
+			System.out.println("Removing socket "+ socket+"...");
+			outputStreamTable.remove(socket);
+			
+			try {
+				socket.close();
+			} catch (IOException e) {
+				
+				System.out.println("Failed to remove socket");
+				e.printStackTrace();
+			}
+			
+		}
 
 	}
 
